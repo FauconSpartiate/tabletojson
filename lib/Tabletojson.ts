@@ -162,15 +162,17 @@ export class Tabletojson {
                         const cheerioCellText: string = cheerioCell.text();
                         const cheerioCellHtml: string | null = cheerioCell.html();
                         const cheerioCellRowspan: string | undefined = cheerioCell.attr('rowspan');
-                        console.log(cheerioCell);
-                        console.log(cheerioCell.HTML);
+
                         let content: string = options.stripHtmlFromCells
                             ? cheerioCellText.trim()
                             : cheerioCellHtml
                             ? cheerioCellHtml.trim()
                             : '';
 
-                        content = content.concat('_child');
+                        if (cheerioCell.html()?.includes('"s4"')) {
+                            content = content.concat('_child');
+                        }
+
                         setColumn(j, content);
 
                         // Check rowspan

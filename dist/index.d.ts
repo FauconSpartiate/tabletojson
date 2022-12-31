@@ -1,5 +1,5 @@
 export { Tabletojson } from './lib/Tabletojson';
-export declare type TableToJsonOptions = {
+export type TableToJsonOptions = {
     useFirstRowForHeadings?: boolean;
     stripHtmlFromHeadings?: boolean;
     stripHtmlFromCells?: boolean;
@@ -15,4 +15,4 @@ export declare type TableToJsonOptions = {
     limitrows?: number | null;
     got?: any;
 };
-export declare type CallbackFunction = (conversionResult: any) => any;
+export type CallbackFunction = (conversionResult: any) => any;

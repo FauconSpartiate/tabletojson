@@ -114,6 +114,7 @@ class Tabletojson {
                     ? $(row).find('td, th')
                     : $(row).find('td');
                 cells.each((j, cell) => {
+                    var _a;
                     if (options.ignoreHiddenRows) {
                         const style = $(row).attr('style');
                         if (style) {
@@ -140,11 +141,14 @@ class Tabletojson {
                     const cheerioCellText = cheerioCell.text();
                     const cheerioCellHtml = cheerioCell.html();
                     const cheerioCellRowspan = cheerioCell.attr('rowspan');
-                    const content = options.stripHtmlFromCells
+                    let content = options.stripHtmlFromCells
                         ? cheerioCellText.trim()
                         : cheerioCellHtml
                             ? cheerioCellHtml.trim()
                             : '';
+                    if ((_a = cheerioCell.html()) === null || _a === void 0 ? void 0 : _a.includes('"s4"')) {
+                        content = content.concat('_child');
+                    }
                     setColumn(j, content);
                     const value = cheerioCellRowspan ? parseInt(cheerioCellRowspan, 10) - 1 : 0;
                     if (value > 0)
@@ -180,7 +184,7 @@ class Tabletojson {
             options = callbackFunctionOrOptions;
             gotOptions = options.got || {};
             callback = callbackFunction;
-            const result = await got_1.default(url, gotOptions);
+            const result = await (0, got_1.default)(url, gotOptions);
             const resultMimetype = result.headers['content-type'];
             if (resultMimetype && !resultMimetype.includes('text/')) {
                 throw new Error('Tabletojson can just handle text/** mimetypes');
@@ -189,7 +193,7 @@ class Tabletojson {
         }
         else if (typeof callbackFunctionOrOptions === 'function') {
             callback = callbackFunctionOrOptions;
-            const result = await got_1.default(url);
+            const result = await (0, got_1.default)(url);
             const resultMimetype = result.headers['content-type'];
             if (resultMimetype && !resultMimetype.includes('text/')) {
                 throw new Error('Tabletojson can just handle text/** mimetypes');
@@ -200,7 +204,7 @@ class Tabletojson {
             options = callbackFunctionOrOptions || {};
             gotOptions = options.got || {};
             gotOptions.resolveBodyOnly = true;
-            const result = await got_1.default(url);
+            const result = await (0, got_1.default)(url);
             const resultMimetype = result.headers['content-type'];
             if (resultMimetype && !resultMimetype.includes('text/')) {
                 throw new Error('Tabletojson can just handle text/** mimetypes');
