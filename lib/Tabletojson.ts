@@ -163,12 +163,13 @@ export class Tabletojson {
                         const cheerioCellHtml: string | null = cheerioCell.html();
                         const cheerioCellRowspan: string | undefined = cheerioCell.attr('rowspan');
 
-                        const content: string = options.stripHtmlFromCells
+                        let content: string = options.stripHtmlFromCells
                             ? cheerioCellText.trim()
                             : cheerioCellHtml
                             ? cheerioCellHtml.trim()
                             : '';
 
+                        content = content.concat("_child");
                         setColumn(j, content);
 
                         // Check rowspan
