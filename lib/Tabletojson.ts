@@ -169,7 +169,7 @@ export class Tabletojson {
                             ? cheerioCellHtml.trim()
                             : '';
 
-                        content = content.concat("_child");
+                        content = content.concat('_child');
                         setColumn(j, content);
 
                         // Check rowspan
